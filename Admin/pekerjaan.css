@@ -1,0 +1,414 @@
+:root {
+  --header-bg: #ffffff;
+  --border: #e5e7eb;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --accent: #f97316;
+  --btn-edit: #2ecc71;    /* Disinkronkan dengan warna hijau */
+  --btn-hapus: #e74c3c;   /* Disinkronkan dengan warna merah */
+  --btn-detail: #10b981;
+  --card-bg: #ffffff;
+  --table-header-bg: #f8fafc;
+  --table-header-text: #1f2937;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --teal: #00b894;
+  --teal-dark: #00a884;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f2f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 140px;
+  background: #1a2a3a;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  padding: 16px 12px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f4a623, #e87c2b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.nav-item {
+  padding: 14px 16px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background 0.2s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-right .greet {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.topbar-right .greet strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.btn-logout {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background 0.18s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(230,57,70,0.25);
+}
+
+.btn-logout:hover { 
+  background: #c0313d; 
+  transform: translateY(-1px); 
+}
+
+/* ===== PAGE BODY ===== */
+.page-body {
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== SECTION CARD & WRAPPER ===== */
+.section-card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border: 1px solid var(--border);
+}
+
+.section-title {
+  background: var(--table-header-bg);
+  color: var(--table-header-text);
+  text-align: center;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Sora', sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.table-wrapper {
+  margin-bottom: 50px;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.judul-kategori {
+  margin-bottom: 20px;
+  color: #222;
+  border-left: 6px solid var(--teal);
+  padding-left: 15px;
+}
+
+/* ===== TABLE LAYOUT ===== */
+.table-wrap {
+  padding: 16px 20px 20px;
+  overflow-x: auto;
+}
+
+.table-scroll {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--teal);
+  color: white;
+  padding: 14px;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: left;
+  z-index: 10;
+}
+
+/* Aturan overide thead jika berada di dalam struktur lama */
+thead tr {
+  background: #f3f4f6;
+}
+thead th {
+  border-bottom: 2px solid var(--border);
+}
+
+tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: background 0.15s;
+}
+
+tbody tr:last-child { 
+  border-bottom: none; 
+}
+
+tbody tr:hover { 
+  background: #fef7f7; 
+}
+
+table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  color: var(--text-main);
+}
+
+/* ===== MEDIA CELLS (GAMBAR) ===== */
+.img-cell {
+  width: 80px; 
+  height: 56px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #9ca3af;
+}
+
+.img-cell img {
+  width: 100%; 
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-code {
+  width: 80px; 
+  height: 56px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0d1117;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.img-code svg {
+  width: 72px; 
+  height: 50px;
+}
+
+.img-empty {
+  width: 80px; 
+  height: 56px;
+  border-radius: 8px;
+  background: #e5e7eb;
+  border: 2px dashed #d1d5db;
+}
+
+/* ===== PENANGANAN TEKS DESKRIPSI PANJANG ===== */
+.desc-text {
+  max-width: 280px;         /* Membatasi lebar agar tidak merusak kolom lain */
+  line-height: 1.6;
+  color: #374151;
+  font-size: 13px;
+  word-break: break-word;   /* Memaksa text membungkus ke bawah dengan aman jika sangat panjang */
+  white-space: normal;
+}
+
+.badge-cat {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ===== TOMBOL AKSI UTAMA (Mencegah Tabrakan/Tumpuk) ===== */
+.actions { 
+  display: flex; 
+  gap: 8px; 
+  flex-wrap: nowrap;        /* Memaksa tombol tetap sejajar horizontal */
+  align-items: center;
+}
+
+.btn-action, .btn-edit, .btn-hapus, .btn-detail {
+  display: inline-flex;     /* Memperbaiki display agar padding bekerja sempurna */
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-decoration: none;
+  white-space: nowrap;      /* Mencegah teks di dalam tombol patah baris */
+  transition: opacity 0.15s, transform 0.12s, background-color 0.2s;
+}
+
+.btn-action:hover, .btn-edit:hover, .btn-hapus:hover, .btn-detail:hover { 
+  opacity: 0.9; 
+  transform: translateY(-1px); 
+}
+
+/* Pewarnaan Tombol */
+.btn-edit { 
+  background-color: var(--btn-edit); 
+  color: #fff; 
+}
+.btn-hapus { 
+  background-color: var(--btn-hapus); 
+  color: #fff; 
+}
+.btn-detail { 
+  background-color: var(--btn-detail); 
+  color: #fff; 
+}
+
+/* ===== CARD FOOTER & FOOTER UTAMA ===== */
+.pk-card-footer {
+  margin-top: auto;
+  padding: 12px;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pk-card-footer:hover {
+  background: #f5f5f5;
+}
+
+.pk-card-footer a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.pk-card-footer a:hover {
+  color: var(--teal-dark);
+}
+
+footer {
+  margin-top: 80px;
+  background: #111827;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+footer h1 {
+  color: white;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+footer img {
+  height: 100px;
+  width: 200px;
+  margin: 15px 0;
+}
+
+footer p {
+  color: white;
+  font-size: 0.9rem;
+  margin: 0;
+}

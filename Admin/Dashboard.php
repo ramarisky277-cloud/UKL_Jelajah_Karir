@@ -1,51 +1,107 @@
 <?php
+
 session_start();
-include_once '../Include/koneksi.php'; // Hubungkan ke database
+include_once '../Include/koneksi.php';
 
+if (isset($_POST['nama_pekerjaan'])) {
 
-
-if (isset($_POST['nama']))  {
-
-    $nama_produk = $_POST[''];
-    $stok = $_POST['stok'];
-    $harga = $_POST['harga'];
+    $nama_pekerjaan = $_POST['nama_pekerjaan'];
+    $categories_id = $_POST['categories_id'];
     $deskripsi = $_POST['deskripsi'];
 
-    // Ambil file
-    $nama_file = basename($_FILES['gambar']['name']);
+    $pengertian = $_POST['pengertian'];
+    $judul_jenis = $_POST['judul_jenis'];
+    $tugas_utama = $_POST['tugas_utama'];
+    $teknologi = $_POST['teknologi'];
+    $skill = $_POST['skill'];
+    $tempat_kerja = $_POST['tempat_kerja'];
+    $gaji_kisaran = $_POST['gaji_kisaran'];
+
+    $video = $_POST['video'];
+    $deskripsi_materi = $_POST['deskripsi_materi'];
+
+    // upload gambar
+    $nama_file = $_FILES['gambar']['name'];
     $tmp = $_FILES['gambar']['tmp_name'];
 
-    // Folder menyimpan gambar
-    $upload_dir = 'gambar_produk/';
+    $upload_dir = "gambar_pekerjaan/";
 
-    // Buat folder jika belum ada
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0777, true);
     }
 
-    // Path lengkap
-    $target_file = $upload_dir . $nama_file;
+    move_uploaded_file($tmp, $upload_dir . $nama_file);
 
-    // Upload file (HANYA SEKALI!)
-    if (move_uploaded_file($tmp, $target_file)) {
+    // INSERT PEKERJAAN
 
-        $sql = "INSERT INTO products (nama_produk, stok, harga, deskripsi, gambar)
-                VALUES ('$nama_produk', '$stok', '$harga', '$deskripsi', '$nama_file')";
+    $sql_pekerjaan = "INSERT INTO pekerjaan
+    (categories_id, nama_pekerjaan, image, deskripsi)
 
-        if (mysqli_query($conn, $sql)) {
-            echo "Produk berhasil ditambahkan.";
-        } else {
-            echo "Error DB: " . mysqli_error($conn);
+    VALUES
+
+    ('$categories_id', '$nama_pekerjaan', '$nama_file', '$deskripsi')";
+
+    if(mysqli_query($conn, $sql_pekerjaan)){
+
+        // ambil id pekerjaan
+        $id_pekerjaan = mysqli_insert_id($conn);
+
+
+        // INSERT DETAIL PEKERJAAN
+
+        $sql_detail_pekerjaan = "INSERT INTO detail_pekerjaan
+        (pekerjaan_id, pengertian)
+
+        VALUES
+
+        ('$id_pekerjaan', '$pengertian')";
+
+        if(mysqli_query($conn, $sql_detail_pekerjaan)){
+
+            // ambil id detail pekerjaan
+            $id_detail_pekerjaan = mysqli_insert_id($conn);
+
+            // INSERT DETAIL ITEM
+
+            $sql_detail = "INSERT INTO detail_item
+            (detail_pekerjaan_id, judul_jenis, tugas_utama, teknologi, skill, tempat_kerja, gaji_kisaran)
+
+            VALUES
+
+            ('$id_detail_pekerjaan', '$judul_jenis', '$tugas_utama', '$teknologi', '$skill', '$tempat_kerja', '$gaji_kisaran')";
+
+            if(mysqli_query($conn, $sql_detail)){
+
+                // INSERT KURSUS
+          
+                $sql_kursus = "INSERT INTO kursus
+                (pekerjaan_id, materi, deskripsi)
+
+                VALUES
+
+                ('$id_pekerjaan', '$video', '$deskripsi_materi')";
+
+                if(mysqli_query($conn, $sql_kursus)){
+
+                    echo "<script> alert('Semua data berhasil ditambahkan'); window.location.href='Dashboard.php'; </script> "; exit;
+                }else{
+                    die("Error kursus: " . mysqli_error($conn));
+                }
+
+            }else{
+                die("Error detail_item: " . mysqli_error($conn));
+            }
+
+        }else{
+            die("Error detail_pekerjaan: " . mysqli_error($conn));
         }
 
-    } else {
-        echo "Upload gagal!";
-        print_r($_FILES);
+    }else{
+        die("Error pekerjaan: " . mysqli_error($conn));
     }
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="id">
@@ -64,8 +120,11 @@ if (isset($_POST['nama']))  {
     <div class="sidebar-logo">
      <img src="../Gambar/Nobg.png"  width="80%" alt="Logo">
     </div>
-    <div class="nav-item active">Dashboard</div>
-    <div class="nav-item">Pekerjaan</div>
+    <div class="sidebar">
+    <div class="nav-item"><a href="Dashboard.php" style="color:inherit; text-decoration:none;">Dashboard</a></div>
+    <div class="nav-item"><a href="Pekerjaan.php" style="color:inherit; text-decoration:none;">Pekerjaan</a></div>
+    <div class="nav-item"><a href="Transaksi.php" style="color:inherit; text-decoration:none;">Transaksi</a></div>
+  </div>
   </div>
 
   <!-- MAIN -->
@@ -73,9 +132,13 @@ if (isset($_POST['nama']))  {
 
     <!-- TOPBAR -->
     <div class="topbar">
-      <h1>Dahsboard</h1>
-      <button class="btn-logout">Logout</button>
+    <h1>Dahsboard Admin</h1>
+    <div class="topbar-right">
+      <span class="greet">Halo, <strong>Admin</strong></span>
+      <button class="btn-logout"><a href="../Login/Login.php">Logout</a></button>
     </div>
+  </div>
+
 
     <!-- CONTENT -->
     <div class="content">
@@ -84,15 +147,33 @@ if (isset($_POST['nama']))  {
       <div class="stat-cards">
         <div class="stat-card teal">
           <div class="label">Total pekerjaan</div>
-          <div class="value">2002</div>
+          <div class="value">
+              <?php
+        $query = "SELECT COUNT(*) AS db_ukl FROM pekerjaan";
+        $result = mysqli_query($conn, $query);
+        $data = mysqli_fetch_assoc($result);
+
+        echo $data['db_ukl'];
+        ?>
+          </div>
         </div>
         <div class="stat-card amber">
           <div class="label">Total kategory</div>
           <div class="value">9</div>
         </div>
         <div class="stat-card light">
-          <div class="label">Total user</div>
-          <div class="value">100</div>
+          <div class="label">
+          <h3>Total user <h3></div>
+          <p class="value">
+          <?php
+        $query = "SELECT COUNT(*) AS db_ukl FROM users";
+        $result = mysqli_query($conn, $query);
+        $data = mysqli_fetch_assoc($result);
+
+        echo $data['db_ukl'];
+        ?>
+    </p>
+  
         </div>
       </div>
 
@@ -100,7 +181,7 @@ if (isset($_POST['nama']))  {
       <div class="section-card">
         <div class="section-header">
           <h2>Daftar Pekerjaan baru</h2>
-          <a class="add-link" href="#tambah_pekerjaan">Tambah Pekerjaan</a>
+          <a class="add-link" href="tambah.php">Tambah Pekerjaan +</a>
         </div>
         <table>
           <thead>
@@ -114,69 +195,50 @@ if (isset($_POST['nama']))  {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>
-                <div class="img-placeholder">
-                  <img src="../Gambar/BG_FrondEN.jpg" alt="Web Development">
-                </div>
-              </td>
-              <td>Web Development</td>
-              <td>Profesi ini sangat dibutuhkan dalam membuat web side</td>
-              <td>Ilmu Teknologi</td>
-              <td>
-                <button class="btn-edit">Edit</button>
-                <button class="btn-hapus">Hapus</button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>
-                <div class="img-placeholder empty"></div>
-              </td>
-              <td>Web Development</td>
-              <td>Profesi ini sangat dibutuhkan dalam membuat web side</td>
-              <td>Ilmu Teknologi</td>
-              <td>
-                <button class="btn-edit">Edit</button>
-                <button class="btn-hapus">Hapus</button>
-              </td>
-            </tr>
-          </tbody>
+<?php
+  $query = mysqli_query($conn, "
+  SELECT * 
+FROM pekerjaan as p
+JOIN categories as c
+ON p.categories_id = c.id_categories
+
+ORDER BY p.id_pekerjaan DESC
+LIMIT 10
+");
+
+$no = 1;
+
+while ($data = mysqli_fetch_assoc($query)) 
+   {
+?>
+  <tr>
+    <td><?= $no++; ?></td>
+    <td>
+      <div class="img-placeholder">
+        <img src="gambar_pekerjaan/<?= $data['image']; ?>" width="80">
+      </div>
+    </td>
+    <td><?= $data['nama_pekerjaan']; ?></td>
+    <td><?= $data['deskripsi']; ?></td>
+    <td><?= $data['nama_categories']; ?></td>
+    <td>
+    <a class="btn-edit" href="edit.php?id=<?= $data['id_pekerjaan']; ?>">
+    Edit
+  </a>
+  <a class="btn-hapus" href="hapus.php?id=<?= $data['id_pekerjaan']; ?>">
+    Hapus
+</a>
+  </td>
+</tr>
+<?php } ?>
+</tbody>
         </table>
       </div>
 
-      <!-- FORM TAMBAH PEKERJAAN -->
-       <section class="tambah_pekerjaan">
-        <h2>Tambah Pekerjaan</h2>
-      <form method="post" enctype="multipart/form-data">
-      <div class="form-card">
-        <div class="form-group">
-          <label for="nama_pekerjaan">Nama Pekerjaan</label>
-          <input type="text" id="namapekerjaan" name="nama_pekerjaan" placeholder="">
-        </div>
-        <div class="form-group">
-          <label for="category">Category</label>
-          <input type="text" id="category" name="category" placeholder="">
-        </div>
-        <div class="form-group">
-          <label for="deskripsi">Deskripsi singkat</label>
-          <input type="text" id="deskripsi" name="deskripsi" placeholder="">
-        </div>
-        <div class="form-group">
-          <label>Gambar pekerjaan</label>
-          <div class="file-input-wrap" onclick="document.getElementById('fileInput').click()">
-            <span class="file-btn">choise file</span>
-            <span class="file-name" id="fileName">No file chosen</span>
-          </div>
-          <input type="file" id="fileInput" accept="image/*" onchange="document.getElementById('fileName').textContent = this.files[0]?.name || 'No file chosen'">
-        </div>
-        <button class="btn-tambah">tambah Pekerjaan +</button>
-      </div>
-         </section>
-    </div><!-- /content -->
-  </div><!-- /main -->
-</div><!-- /layout -->
+      
+<footer>
+        <p>&copy; 2024 Jelajah Karir. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>

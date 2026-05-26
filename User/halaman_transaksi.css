@@ -1,0 +1,86 @@
+body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #333;
+        }
+        h2 {
+            color: #ff4757;
+            margin-top: 0;
+        }
+        .price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2ed573;
+            margin: 20px 0;
+        }
+        .benefit {
+            text-align: left;
+            margin: 20px 0;
+            padding: 0;
+            list-style: none;
+        }
+        .benefit li {
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+        .benefit li::before {
+            content: "✓ ";
+            color: #2ed573;
+            font-weight: bold;
+        }
+        .btn-pay {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .btn-pay:hover {
+            background-color: #e84118;
+        }
+        .btn-back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-back:hover {
+            color: #fff;
+        }
+        .alert {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .success {
+            background-color: #1e3d2f;
+            color: #2ed573;
+            border: 1px solid #2ed573;
+        }
+        .error {
+            background-color: #4d1c24;
+            color: #ff4757;
+            border: 1px solid #ff4757;
+        }

@@ -1,4 +1,19 @@
-    *{
+  :root {
+      --header-bg: #ffffff;
+      --border: #e5e7eb;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --accent: #f97316;
+      --btn-edit: #0ea5e9;
+      --btn-hapus: #ef4444;
+      --btn-detail: #10b981;
+      --card-bg: #ffffff;
+      --table-header-bg: #f8fafc;
+      --table-header-text: #1f2937;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+*{
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -10,6 +25,7 @@
       min-height: 100vh;
     }
 
+    
     /* ===== LAYOUT ===== */
     .layout {
       display: flex;
@@ -70,11 +86,7 @@
       color: rgba(255, 255, 255, 0.85);
     }
 
-    .nav-item.active {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.08);
-      border-left: 3px solid #5ab5c8;
-    }
+    
 
     /* ===== MAIN AREA ===== */
     .main {
@@ -86,40 +98,88 @@
 
     /* ===== TOPBAR ===== */
     .topbar {
-      background: #fff;
-      padding: 14px 28px;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 60px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      border-bottom: 0.5px solid #e0e0e0;
+      justify-content: space-between;
+      position: sticky; top: 0;
+      z-index: 50;
+    }
+
+    .topbar a{
+      text-decoration-line: none;
+      text-decoration: none ;
     }
 
     .topbar h1 {
-      font-size: 22px;
-      font-weight: 600;
-      color: #1a1a1a;
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.3px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-right .greet {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .topbar-right .greet strong {
+      color: var(--);
+      font-weight: 700;
     }
 
     .btn-logout {
-      background: #e8453c;
+      background: var(--accent);
       color: #fff;
       border: none;
-      padding: 9px 22px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
+      padding: 7px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background 0.18s, transform 0.15s;
+      box-shadow: 0 2px 8px rgba(230,57,70,0.25);
+    }
+    .btn-logout:hover { background: #c0313d; transform: translateY(-1px); }
+
+    /* ── PAGE BODY ── */
+    .page-body {
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
-    .btn-logout:hover {
-      background: #c93830;
+    /* ── SECTION CARD ── */
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      border: 1px solid var(--border);
     }
 
-    /* ===== CONTENT ===== */
-    .content {
-      padding: 28px;
-      flex: 1;
+    .section-title {
+      background: var(--table-header-bg);
+      color: var(--table-header-text);
+      text-align: center;
+      padding: 11px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Sora', sans-serif;
+      letter-spacing: 0.3px;
     }
 
     /* ===== STAT CARDS ===== */
@@ -193,7 +253,7 @@
 
     .add-link {
       font-size: 13px;
-      color: #2a8fa8;
+      color: #5e6162;
       cursor: pointer;
       font-weight: 600;
       text-decoration: none;
@@ -275,6 +335,32 @@
       cursor: pointer;
       transition: background 0.2s;
     }
+
+    td:last-child{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 190px;
+} 
+
+.btn-edit,
+.btn-hapus{
+  text-decoration: none;
+  min-width: 75px;
+  text-align: center;
+}
+
+.btn-edit {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
 
     .btn-hapus:hover {
       background: #c93830;
@@ -365,4 +451,111 @@
 
     .btn-tambah:hover {
       background: #5aa8b4;
+    }
+    .pk-card-footer {
+  margin-top: auto;
+  padding: 12px;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pk-card-footer:hover {
+  background: #f5f5f5;
+}
+
+.pk-card-footer a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.pk-card-footer a:hover {
+  color: var(--teal-dark);
+}
+
+/* ── FOOTER ── */
+footer {
+  background-color: #192C4D;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+footer h1 {
+  color: var(--white);
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+footer img {
+  height: 100px;
+  width: 200px;
+  margin: 15px 0;
+}
+
+footer p {
+  color: var(--white);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+footer{
+    margin-top: 80px;
+    background: #111827;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+    /* ===== PAGE LOADER (transition when navigating to Pekerjaan) ===== */
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(18,24,40,0.45);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 320ms ease;
+      z-index: 9999;
+    }
+
+    .page-loader .loader-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 22px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(2,6,23,0.18);
+    }
+
+    .page-loader .loader-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 5px solid rgba(37,99,235,0.12);
+      border-top-color: #2563eb;
+      animation: spin 900ms linear infinite;
+    }
+
+    .page-loader .loader-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .page-loader.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }

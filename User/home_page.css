@@ -22,7 +22,6 @@ body {
   overflow-x: hidden;
 }
 
-
 nav {
   display: flex;
   align-items: center;
@@ -62,14 +61,13 @@ ul li a:hover {
   padding: 0.5rem 1.3rem;
   border-radius: 50px;
   transition: background 0.2s, transform 0.2s !important;
-  margin:auto;
+  margin: auto;
 }
 
 .nav-cta:hover {
   background: var(--teal-dark) !important;
   transform: translateY(-1px);
 }
-
 
 .home_page {
   display: flex;
@@ -82,7 +80,6 @@ ul li a:hover {
   min-height: 420px;
 }
 
-/* Right teal background panel */
 .hero::after {
   content: '';
   position: absolute;
@@ -95,7 +92,6 @@ ul li a:hover {
   z-index: 0;
 }
 
-/* Decorative circles */
 .deco-teal {
   position: absolute;
   top: 1.8rem;
@@ -121,12 +117,27 @@ ul li a:hover {
   animation: bobY 5s ease-in-out infinite reverse;
 }
 
+.deco-teal-dark {
+  position: absolute;
+  right: 20%;
+  width: 60px;
+  height: 60px;
+  background: var(--teal-dark);
+  border-radius: 50%;
+  z-index: 1;
+  animation: bawah 7s ease-in-out infinite reverse;
+}
+
+@keyframes bawah {
+  0%, 100% { transform: translate(10); }
+  50%       { transform: translateY(-15px); }
+}
+
 @keyframes bobY {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-13px); }
 }
 
-/* Hero text side */
 .home_page-container {
   position: relative;
   z-index: 2;
@@ -194,7 +205,6 @@ ul li a:hover {
   box-shadow: 0 14px 28px rgba(75,191,191,0.42);
 }
 
-/* Hero image side */
 .hero-image {
   position: relative;
   z-index: 2;
@@ -211,12 +221,10 @@ ul li a:hover {
   width: 320px;
   max-width: 100%;
   display: block;
-  /* remove black background from PNG */
   mix-blend-mode: multiply;
   filter: drop-shadow(0 16px 36px rgba(0,0,0,0.18));
 }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 860px) {
   nav { padding: 1rem 1.5rem; }
   .nav-links { gap: 1rem; }
@@ -234,64 +242,252 @@ ul li a:hover {
 }
 
 
-/* Categories*/
+/* =========================
+   CATEGORIES
+========================= */
 
-.categories h1 {
-  margin: 30px 0;
-  text-align: center;
+.categories {
+  padding: 60px 40px;
+  background: linear-gradient(to bottom, #f5f7fb, #eef4f7);
 }
 
-/* Grid layout */
+.categories h1 {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 14px;
+  position: relative;
+  letter-spacing: -1.5px;
+}
 
+.categories h1::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 4px;
+  background: #18c4c4;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50px;
+}
+
+/* Baris 1: 4 kartu */
 .categories-container {
+  max-width: 1100px;
+  margin: 40px auto 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  max-width: 1000px;
-  margin: auto;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Baris 2: 2 kartu tengah */
+.categories-row2 {
+  max-width: 560px;
+  margin: 18px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  align-items: center;
 }
 
 /* CARD */
 .card {
+  position: relative;
+  border-radius: 22px;
+  padding: 20px 16px 16px;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 18px;
-  border-radius: 25px;
-}
-
-/* WARNA SESUAI GAMBAR */
-.orange {
-  background-color: #e79c2c;
-}
-
-.blue {
-  background-color: #79b7b7;
-}
-
-/* TEXT */
-.card span {
-  font-size: 14px;
-}
-
-/* DROPDOWN */
-.card select {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: none;
-  border-radius: 15px;
-  padding: 5px 10px;
-  outline: none;
-  background: white;
-  cursor: pointer;
+  min-height: 0;
 }
 
-/* HOVER BIAR LEBIH HIDUP */
 .card:hover {
-  transform: scale(1.03);
-  transition: 0.2s;
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+}
+
+/* Blob dekorasi pojok kanan atas */
+.card::before {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 80px;
+  border-radius: 50% 60% 55% 45%;
+  top: -18px;
+  right: -18px;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* =========================
+   CARD COLORS
+========================= */
+
+.tech      { background: #fdecd6; }
+.tech::before      { background: #f97316; }
+
+.health    { background: #d4f4f4; }
+.health::before    { background: #0ea5a5; }
+
+.education { background: #ebe8fe; }
+.education::before { background: #7c3aed; }
+
+.law       { background: #dbeafe; }
+.law::before       { background: #2563eb; }
+
+.creative  { background: #d4f4f4; }
+.creative::before  { background: #0ea5a5; }
+
+.business  { background: #fdecd6; }
+.business::before  { background: #f97316; }
+
+/* =========================
+   ICON CIRCLE
+========================= */
+
+.icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.icon-circle img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .icon-circle img {
+  transform: scale(1.1);
+}
+
+/* =========================
+   LABEL
+========================= */
+
+.card span {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.3;
+  z-index: 1;
+  margin-bottom: 0;
+}
+
+/* =========================
+   SELECT
+========================= */
+
+.card select {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.93);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  z-index: 1;
+  transition: transform 0.2s ease;
+}
+
+.card select:focus {
+  transform: scale(1.02);
+}
+
+/* =========================
+   TOMBOL CARI (besar, tidak diubah)
+========================= */
+
+/* =========================
+   TOMBOL CARI
+========================= */
+
+.btn-cari {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 22px;
+  padding: 18px 20px;
+
+  border: none;
+  border-radius: 18px;
+
+  background: linear-gradient(135deg, #17c7c7, #0ea5a5);
+  color: white;
+
+  font-size: 1.2rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 24px rgba(0,198,198,0.20);
+  transition: 0.3s ease;
+}
+
+.btn-cari:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(0,198,198,0.28);
+}
+
+.btn-cari:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   RESPONSIVE CATEGORIES
+========================= */
+
+@media (max-width: 900px) {
+  .categories-container {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 560px;
+  }
+  .categories-row2 {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 560px) {
+  .categories { padding: 40px 16px; }
+  .categories h1 { font-size: 2rem; }
+  .categories-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .categories-row2 {
+    gap: 12px;
+  }
+  .card { border-radius: 16px; padding: 16px 12px; }
+  .icon-circle { width: 46px; height: 46px; }
+  .icon-circle img { width: 24px; height: 24px; }
+  .card span { font-size: 0.82rem; }
+  .btn-cari { height: 64px; font-size: 1.4rem; }
 }
 
 
-/*Bagian pekerjaan*/
+/* =========================
+   BAGIAN PEKERJAAN
+========================= */
+
 .pekerjaan-container {
   width: 90%;
   margin: 30px auto;
@@ -305,24 +501,54 @@ ul li a:hover {
 
 .search-box {
   margin-bottom: 30px;
+  display: inline-flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .search-box input {
-  width: 300px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  width: 280px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
   outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-size: 0.95rem;
 }
 
-/* GRID */
+.search-box input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 4px rgba(75, 191, 191, 0.12);
+}
+
+.search-box button {
+  border: none;
+  background: var(--teal);
+  color: var(--white);
+  font-weight: 700;
+  padding: 0 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  min-height: 44px;
+}
+
+.search-box button:hover {
+  background: var(--teal-dark);
+  transform: translateY(-1px);
+}
+
+.search-box button:active {
+  transform: translateY(0);
+}
+
 .pekerjaan-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
 
-/* CARD */
 .pk-card {
   background: #fff;
   border-radius: 20px;
@@ -332,7 +558,29 @@ ul li a:hover {
   flex-direction: column;
 }
 
-/* IMAGE AREA */
+.pk-card-footer {
+  margin-top: auto;
+  padding: 12px;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pk-card-footer:hover {
+  background: #f5f5f5;
+}
+
+.pk-card-footer a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.pk-card-footer a:hover {
+  color: var(--teal-dark);
+}
+
 .pk-card-img {
   position: relative;
   background: #d9d9d9;
@@ -349,7 +597,6 @@ ul li a:hover {
   object-fit: cover;
 }
 
-/* BADGE */
 .pk-badge {
   position: absolute;
   top: 10px;
@@ -366,7 +613,6 @@ ul li a:hover {
   color: orange;
 }
 
-/* BODY */
 .pk-card-body {
   padding: 15px;
   text-align: left;
@@ -382,30 +628,84 @@ ul li a:hover {
   color: #555;
 }
 
-/* FOOTER */
-.pk-card-footer {
-  margin-top: auto;
-  padding: 12px;
-  border-top: 1px solid #eee;
-  font-size: 13px;
-  cursor: pointer;
-}
 
-.pk-card-footer:hover {
-  background: #f5f5f5;
-}
+/* =========================
+   FOOTER
+========================= */
 
 footer {
-  background-color: #192C4D;
+  margin-top: 80px;
+  background: #111827;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
 }
 
-footer img{
+footer h1 {
+  color: var(--white);
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+footer img {
   height: 100px;
   width: 200px;
-  display: flex;
-  justify-content: center;
+  margin: 15px 0;
 }
 
-footer p, h1{
-  color: #FFFFFF;
+footer p {
+  color: var(--white);
+  font-size: 0.9rem;
+  margin: 0;
 }
+
+
+/* =========================
+   RESPONSIVE UMUM
+========================= */
+
+@media (max-width: 1024px) {
+  .home_page {
+    flex-direction: column;
+    padding: 3rem 2.5rem;
+    min-height: auto;
+    gap: 1.5rem;
+  }
+  .home_page-container {
+    max-width: 100%;
+    text-align: center;
+  }
+  .hero-image { margin: 0 auto; }
+  .hero-image img { width: 260px; }
+  .pekerjaan-container { width: 95%; margin: 18px auto; }
+}
+
+@media (max-width: 720px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    gap: 8px;
+  }
+  .navbar { flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .logo { height: 44px; }
+  .home_page { padding: 2rem 1rem; gap: 1rem; }
+  .home_title { font-size: 1.6rem; }
+  .home_desk { max-width: 100%; }
+  .hero-image img { width: 200px; }
+  .pekerjaan-grid { gap: 14px; }
+  .pk-card { border-radius: 14px; }
+  .pk-card-img { height: 120px; }
+  .pk-card-body h3 { font-size: 13px; }
+  .pk-card-body p { font-size: 12px; }
+}
+
+@media (max-width: 420px) {
+  .home_title { font-size: 1.35rem; }
+  .hero-image img { width: 160px; }
+  .search-box input { width: 200px; }
+  .navbar li a { padding: 10px 12px; font-size: 14px; }
+}
+

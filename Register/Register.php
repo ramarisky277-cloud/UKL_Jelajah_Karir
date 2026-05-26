@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-                $sql_register = "INSERT INTO users (username, password, role) VALUES (?, ?, 'users')";
+                $sql_register = "INSERT INTO users (username, password, role) VALUES (?, ?, 'user')";
                 $stmt = mysqli_prepare($conn, $sql_register);
 
                 if (!$stmt) {
@@ -103,7 +103,7 @@ ob_end_flush(); // ← Kirim buffer ke browser
             <?php if (!empty($success)): ?>
                 <div style="color: green; margin-bottom: 10px;"><?= htmlspecialchars($success) ?></div>
             <?php endif; ?>
-            <form action="register.php" method="post">
+            <form action="Register.php" method="post">
             <br>Username:<br><input type="text" name="username" placeholder="Enter your username">
             Password:<br>
             <input type="password" name="password" placeholder="password" required>
